@@ -156,7 +156,9 @@ fn do_press(g: Game, x: Float, y: Float) -> Game {
   case g.phase {
     Intro -> start_level(g, x, y)
     LevelClear -> start_level(Game(..g, level: g.level + 1), x, y)
-    GameOver -> Game(..new_game(), score: 0)
+    // Losing keeps your level — you retry the one that beat you. Only the
+    // score starts over. The full reset lives behind an explicit button.
+    GameOver -> start_level(Game(..new_game(), level: g.level), x, y)
     Playing ->
       // A fresh press always grants the turtle its full head start again.
       Game(

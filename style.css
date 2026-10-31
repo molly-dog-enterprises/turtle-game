@@ -283,3 +283,21 @@ body {
   color: #6fe3a5;
   animation: pulse 0.9s infinite alternate;
 }
+/* The overlay itself lets presses fall through to the arena; the restart
+   button is the one thing on it that catches them. */
+.restart-btn {
+  pointer-events: auto;
+  margin-top: 0.4rem;
+  padding: 8px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.restart-btn:active {
+  background: rgba(255, 255, 255, 0.2);
+}

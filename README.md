@@ -17,7 +17,10 @@ bundler, no build step to serve it.
 3. **Lift your finger or leave the screen and the head start resets.**
 4. Catch every turtle before the level clock runs out (13 seconds at level 1,
    shrinking by 0.9s per level to a floor of 4 seconds). Miss it and you lose.
-5. Your level is saved in the browser session — but **refreshing the page
+5. Losing keeps your level — press anywhere to retry it, with your score back
+   at zero. A **Restart at level 1** button on the game-over screen wipes the
+   slate properly. Your best score is remembered between visits.
+6. Your level is saved in the browser session — but **refreshing the page
    costs you two levels**.
 
 Levelling up: turtles get faster, more of them appear (up to 6), and the

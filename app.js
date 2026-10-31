@@ -7,6 +7,26 @@ const ARENA_H = 600;
 
 /** Session persistence: refreshing the page costs you two levels. */
 const SESSION_KEY = 'turtle-game-level';
+/** Best score survives across visits. */
+const BEST_KEY = 'turtle-game-best';
+
+/** Fold a finished score into the stored best; says whether it's a new one. */
+function updateBest(score) {
+  let best = 0;
+  try {
+    best = Number(localStorage.getItem(BEST_KEY)) || 0;
+  } catch {
+    // private browsing etc. — best just lives for this page load
+  }
+  const isNew = score > best;
+  if (isNew) {
+    best = score;
+    try {
+      localStorage.setItem(BEST_KEY, String(score));
+    } catch {}
+  }
+  return { best, isNew };
+}
 
 const $ = (id) => document.getElementById(id);
 const arena = $('arena');
@@ -224,15 +244,33 @@ function renderOverlay(phase, g) {
       </p>
       <p class="overlay-tap">Press anywhere to start level ${g.level}</p>`;
   } else if (phase === 'clear') {
+    const { best, isNew } = updateBest(g.score);
     overlayEl.innerHTML = `
       <h1>Level ${g.level} cleared!</h1>
       <p>The turtles are getting faster. And smarter. And better at hiding behind ads.</p>
+      <p class="overlay-small">${
+        isNew ? `🏆 New best score: ${best}!` : `Score ${g.score} — your best is ${best}.`
+      }</p>
       <p class="overlay-tap">Press anywhere for level ${g.level + 1}</p>`;
   } else {
+    const { best, isNew } = updateBest(g.score);
     overlayEl.innerHTML = `
       <h1>Time's up.</h1>
-      <p>The turtle outlived your attention span. You reached level ${g.level} — score ${g.score}.</p>
-      <p class="overlay-tap">Press anywhere to try again</p>`;
+      <p>The turtle outlived your attention span. You died on level ${g.level} — score ${g.score}.</p>
+      ${
+        best > 0
+          ? `<p class="overlay-small">${
+              isNew ? `🏆 New best score: ${best}!` : `Your best is ${best}.`
+            }</p>`
+          : ''
+      }
+      <p class="overlay-tap">Press anywhere to retry level ${g.level} (score starts over)</p>
+      <button type="button" class="restart-btn">Restart at level 1</button>`;
+    overlayEl.querySelector('.restart-btn').addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      game = TG.new_game();
+    });
   }
 }
 

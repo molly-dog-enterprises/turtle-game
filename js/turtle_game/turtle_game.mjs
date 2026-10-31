@@ -407,28 +407,34 @@ function do_press(g, x, y) {
       y,
     );
   } else {
-    let _record = new_game();
-    return new Game(
-      _record.phase,
-      _record.level,
-      0,
-      _record.time_left,
-      _record.grace_left,
-      _record.pointer_down,
-      _record.px,
-      _record.py,
-      _record.last_px,
-      _record.last_py,
-      _record.pvx,
-      _record.pvy,
-      _record.turtles,
-      _record.ads,
-      _record.ad_cooldown,
-      _record.paused,
-      _record.pause_product,
-      _record.pause_tagline,
-      _record.pause_lock,
-      _record.seq,
+    return start_level(
+      (() => {
+        let _record = new_game();
+        return new Game(
+          _record.phase,
+          g.level,
+          _record.score,
+          _record.time_left,
+          _record.grace_left,
+          _record.pointer_down,
+          _record.px,
+          _record.py,
+          _record.last_px,
+          _record.last_py,
+          _record.pvx,
+          _record.pvy,
+          _record.turtles,
+          _record.ads,
+          _record.ad_cooldown,
+          _record.paused,
+          _record.pause_product,
+          _record.pause_tagline,
+          _record.pause_lock,
+          _record.seq,
+        );
+      })(),
+      x,
+      y,
     );
   }
 }
