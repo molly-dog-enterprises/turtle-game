@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0f1b2d;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.turtle-page {
+  position: fixed;
+  inset: 0;
+  background: #0f1b2d;
+  color: #eef3fa;
+  font-family: system-ui, sans-serif;
+}
+
+.hud {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 7;
+  display: flex;
+  gap: 1.1rem;
+  justify-content: center;
+  font-size: clamp(0.75rem, 2.6vw, 0.95rem);
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(10, 18, 30, 0.6);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.hud-item strong {
+  font-variant-numeric: tabular-nums;
+}
+.panic {
+  color: #ff5d5d;
+  animation: pulse 0.5s infinite alternate;
+}
+@keyframes pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.45;
+  }
+}
+
+.arena {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 35% 30%, #16324f, #102338 70%);
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: crosshair;
+}
+
+.sprites {
+  position: absolute;
+  inset: 0;
+}
+
+.turtle {
+  position: absolute;
+  font-size: 2.4rem;
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45));
+}
+.turtle.golden {
+  filter: drop-shadow(0 0 10px #ffd34d) sepia(1) saturate(3) hue-rotate(-15deg);
+}
+/* Head start running: the turtle is untouchable, and flashes red to say so */
+.turtle.shielded {
+  animation: shield-flash 0.35s infinite alternate;
+}
+@keyframes shield-flash {
+  from {
+    filter: sepia(1) saturate(9) hue-rotate(-55deg) drop-shadow(0 0 10px #ff4040);
+  }
+  to {
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45));
+  }
+}
+
+/* Garish fake ads — turtles hide behind them */
+.ad {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 10px;
+  background: repeating-linear-gradient(
+    135deg,
+    #fff23e,
+    #fff23e 14px,
+    #ffd1f0 14px,
+    #ffd1f0 28px
+  );
+  border: 3px dashed #ff2fb3;
+  border-radius: 6px;
+  color: #311b00;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition:
+    left 0.15s ease,
+    top 0.15s ease,
+    width 0.15s ease,
+    height 0.15s ease;
+}
+.ad.flashing {
+  z-index: 5;
+  border-width: 8px;
+}
+.ad.flashing .ad-product {
+  font-size: clamp(1.4rem, 7vw, 2.6rem);
+}
+.ad.flashing .ad-tagline {
+  font-size: clamp(0.9rem, 4vw, 1.4rem);
+}
+.ad.flashing .ad-cta {
+  font-size: 1rem;
+}
+.ad-badge {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  background: #311b00;
+  color: #fff23e;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+.ad-close {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  border: 1px solid #311b00;
+  background: #fff;
+  font-size: 0.65rem;
+  line-height: 1;
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.ad-product {
+  font-size: clamp(0.7rem, 2.4vw, 1rem);
+}
+.ad-tagline {
+  font-size: clamp(0.55rem, 1.8vw, 0.75rem);
+}
+.ad-cta {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #d4007e;
+  animation: pulse 0.4s infinite alternate;
+}
+
+.grace {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 44px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.grace-warn {
+  color: #ffd34d;
+}
+
+/* Full-screen interstitial: pauses the game, skip unlocks after a delay */
+.interstitial {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(10, 18, 30, 0.75);
+}
+.interstitial-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  width: min(85%, 340px);
+  padding: 1.6rem 1.2rem 1.1rem;
+  background: repeating-linear-gradient(
+    135deg,
+    #fff23e,
+    #fff23e 14px,
+    #ffd1f0 14px,
+    #ffd1f0 28px
+  );
+  border: 4px dashed #ff2fb3;
+  border-radius: 10px;
+  color: #311b00;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+.interstitial-kicker {
+  margin: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.interstitial-product {
+  font-size: 1.3rem;
+}
+.interstitial-tagline {
+  font-size: 0.85rem;
+}
+.interstitial-skip {
+  margin-top: 0.4rem;
+  padding: 6px 16px;
+  border: 2px solid #311b00;
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.interstitial-skip:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.interstitial-note {
+  margin: 0;
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  text-align: center;
+  background: rgba(10, 18, 30, 0.82);
+  pointer-events: none;
+}
+.overlay h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+.overlay p {
+  margin: 0;
+  max-width: 34ch;
+}
+.overlay-small {
+  opacity: 0.7;
+  font-size: 0.85rem;
+}
+.overlay-tap {
+  margin-top: 0.6rem;
+  font-weight: 700;
+  color: #6fe3a5;
+  animation: pulse 0.9s infinite alternate;
+}

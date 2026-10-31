@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+    />
+    <title>Turtle Game</title>
+    <meta name="description" content="Chase the turtle before the stupidly short clock runs out." />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐢</text></svg>"
+    />
+  </head>
+  <body>
+    <div class="turtle-page">
+      <header class="hud">
+        <span class="hud-item">Level <strong id="hud-level">1</strong></span>
+        <span class="hud-item" id="hud-time-item">⏱ <strong id="hud-time">0.0s</strong></span>
+        <span class="hud-item">🐢 <strong id="hud-left">0</strong></span>
+        <span class="hud-item">🏆 <strong id="hud-score">0</strong></span>
+      </header>
+
+      <div id="arena" class="arena">
+        <div id="sprites" class="sprites"></div>
+
+        <div id="grace" class="grace" hidden></div>
+
+        <div id="interstitial" class="interstitial" hidden>
+          <div class="interstitial-card">
+            <span class="ad-badge">AD</span>
+            <p class="interstitial-kicker">A word from our sponsors</p>
+            <strong class="interstitial-product" id="int-product"></strong>
+            <em class="interstitial-tagline" id="int-tagline"></em>
+            <span class="ad-cta">BUY NOW!!</span>
+            <button class="interstitial-skip" id="int-skip" disabled>Skip</button>
+            <p class="interstitial-note">Game paused. The turtle is also waiting. Probably.</p>
+          </div>
+        </div>
+
+        <div id="overlay" class="overlay" hidden></div>
+      </div>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+name = "turtle_game"
+version = "0.1.0"
+target = "javascript"
+description = "Catch-the-turtle mini game logic, compiled to JavaScript"
+
+[dependencies]
+gleam_stdlib = ">= 0.44.0 and < 2.0.0"
