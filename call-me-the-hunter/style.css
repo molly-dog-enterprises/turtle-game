@@ -1,0 +1,324 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #0f1b2d;
+  color: #eef3fa;
+  font-family: system-ui, sans-serif;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+   The handheld. Deliberately not grey, not a Game Boy, legally distinct.
+   --------------------------------------------------------------------------- */
+
+.console {
+  --plastic: #5a3fa6;
+  --plastic-dark: #3d2a75;
+  --plastic-light: #7a5fd0;
+  position: relative;
+  width: min(100vw, 430px);
+  margin: 0 auto;
+  padding: 14px 14px calc(env(safe-area-inset-bottom, 0px) + 14px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: linear-gradient(170deg, var(--plastic-light), var(--plastic) 40%, var(--plastic-dark));
+  border-radius: 18px 18px 60px 18px;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.35),
+    0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding-left: 4px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.brand-model {
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0;
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+.bezel {
+  position: relative;
+  padding: 18px 26px 22px;
+  background: #1c1f27;
+  border-radius: 10px 10px 34px 10px;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.screen-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 160 / 144;
+  background: #e3f6c8;
+  box-shadow: inset 0 0 0 2px #0a0d12;
+  overflow: hidden;
+}
+#screen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.power {
+  position: absolute;
+  left: 8px;
+  bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.power-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff3b3b;
+  box-shadow: 0 0 6px #ff3b3b;
+}
+
+.game-name {
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.game-name small {
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+/* ---------------------------------------------------------------------------
+   Controls: two buttons on the left, the stick on the right. As specified.
+   --------------------------------------------------------------------------- */
+
+.controls {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 6px 0;
+  gap: 12px;
+}
+
+.buttons {
+  position: relative;
+  width: 132px;
+  height: 120px;
+}
+.btn {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 0;
+  font: 900 1.3rem system-ui, sans-serif;
+  color: rgba(0, 0, 0, 0.55);
+  background: radial-gradient(circle at 35% 30%, #ff8a8a, #c62b2b 70%);
+  box-shadow:
+    0 5px 0 #6e1414,
+    0 8px 10px rgba(0, 0, 0, 0.5);
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active,
+.btn.down {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 #6e1414,
+    0 3px 6px rgba(0, 0, 0, 0.5);
+}
+.btn-b {
+  left: 0;
+  top: 0;
+}
+.btn-a {
+  right: 0;
+  bottom: 24px;
+}
+.btn-labels {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.stick {
+  width: 132px;
+  height: 132px;
+  display: grid;
+  place-items: center;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.stick-base {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #2a2d36, #15171d 70%);
+  box-shadow:
+    inset 0 4px 10px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.15);
+}
+.knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #6b6f7c, #2d3039 70%);
+  box-shadow:
+    0 6px 0 #0d0e12,
+    0 10px 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.05s linear;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.pill {
+  display: inline-block;
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+  font: 700 0.7rem system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pill-hint {
+  font-weight: 400;
+  opacity: 0.6;
+}
+#music.off {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+@media (max-width: 360px) {
+  .pill-hint {
+    display: none;
+  }
+}
+/* Pointer devices get the keyboard hint; fingers don't need it. */
+@media (hover: none) {
+  .pill-hint {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The ad that rotates up out of the chasm. New card designs, same old idea.
+   --------------------------------------------------------------------------- */
+
+.ad {
+  position: absolute;
+  width: 46%;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+  border: 2px solid #111;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 #111;
+  transform: translate(-50%, -50%) scale(0) rotate(-720deg);
+  animation: rotate-out 0.9s cubic-bezier(0.2, 1.2, 0.3, 1) forwards;
+  pointer-events: none;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.ad.leaving {
+  animation: sink 0.5s ease-in forwards;
+}
+@keyframes rotate-out {
+  to {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+@keyframes sink {
+  to {
+    transform: translate(-50%, -50%) scale(0.2) rotate(360deg);
+    opacity: 0;
+  }
+}
+.ad-badge {
+  align-self: flex-start;
+  font: 900 0.45rem system-ui, sans-serif;
+  padding: 1px 4px;
+  background: #111;
+  color: #fff;
+  letter-spacing: 0.1em;
+}
+.ad-product {
+  font-size: clamp(0.7rem, 3.4vw, 0.95rem);
+  line-height: 1.1;
+}
+.ad-tagline {
+  font-size: clamp(0.55rem, 2.6vw, 0.7rem);
+  line-height: 1.15;
+}
+.ad-cta {
+  margin-top: 2px;
+  font: 900 0.55rem system-ui, sans-serif;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+/* Six card looks, picked by ad id. */
+.ad.look-0 { background: #ffd93d; color: #1b1b1b; }
+.ad.look-0 .ad-cta { background: #1b1b1b; color: #ffd93d; }
+.ad.look-1 { background: #1b1b1b; color: #ffd93d; border-color: #ffd93d; box-shadow: 3px 3px 0 #ffd93d; }
+.ad.look-1 .ad-cta { background: #ffd93d; color: #1b1b1b; }
+.ad.look-2 { background: #ff6f91; color: #fff; }
+.ad.look-2 .ad-cta { background: #fff; color: #ff6f91; }
+.ad.look-3 { background: repeating-linear-gradient(45deg, #6fe3ff 0 6px, #e8fbff 6px 12px); color: #0a2a33; }
+.ad.look-3 .ad-cta { background: #0a2a33; color: #6fe3ff; }
+.ad.look-4 { background: #f2e8c9; color: #4a2a0a; border-style: double; border-width: 4px; }
+.ad.look-4 .ad-cta { background: #4a2a0a; color: #f2e8c9; }
+.ad.look-5 { background: #2bd37a; color: #0b2a18; }
+.ad.look-5 .ad-cta { background: #0b2a18; color: #2bd37a; }

@@ -1,0 +1,7 @@
+name = "hunter"
+version = "0.1.0"
+target = "javascript"
+description = "Call me the hunter — turtle-netting game logic, compiled to JavaScript"
+
+[dependencies]
+gleam_stdlib = ">= 0.44.0 and < 2.0.0"

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+    />
+    <title>Call me the hunter (The turtle game)</title>
+    <meta
+      name="description"
+      content="Net the turtles. Dodge the chasms. Ignore the ads. A handheld-style turtle game."
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥅</text></svg>"
+    />
+  </head>
+  <body>
+    <main class="console" id="console">
+      <div class="brand">
+        <span class="brand-name">TURTLE BOY</span>
+        <span class="brand-model">colour</span>
+      </div>
+
+      <div class="bezel">
+        <div class="screen-wrap" id="screen-wrap">
+          <canvas id="screen" width="160" height="144" aria-label="Game screen"></canvas>
+          <div id="ad" class="ad" hidden>
+            <span class="ad-badge">AD</span>
+            <strong class="ad-product" id="ad-product"></strong>
+            <em class="ad-tagline" id="ad-tagline"></em>
+            <span class="ad-cta">BUY NOW!!</span>
+          </div>
+        </div>
+        <div class="power"><i class="power-led" id="power-led"></i> POWER</div>
+      </div>
+
+      <div class="game-name">
+        Call me the hunter <small>(The turtle game)</small>
+      </div>
+
+      <div class="controls">
+        <div class="buttons">
+          <button id="btn-b" class="btn btn-b" type="button" aria-label="B: emergency jump">B</button>
+          <button id="btn-a" class="btn btn-a" type="button" aria-label="A: swing the net">A</button>
+          <div class="btn-labels"><span>B jump</span><span>A net</span></div>
+        </div>
+        <div class="stick" id="stick" aria-label="Joystick">
+          <div class="stick-base">
+            <div class="knob" id="knob"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-row">
+        <button id="music" class="pill" type="button">♪ music</button>
+        <span class="pill pill-hint">keys: arrows · Z=A · X=B</span>
+        <a class="pill" href="../">◂ games</a>
+      </div>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
