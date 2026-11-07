@@ -233,7 +233,8 @@ function renderOverlay(phase, g) {
   overlayKey = key;
   if (phase === 'intro') {
     overlayEl.innerHTML = `
-      <h1>🐢 Turtle Game</h1>
+      <h1>🐢 Just finger it</h1>
+      <p class="overlay-small">(The Turtle Game)</p>
       <p>
         Press and hold — the turtle gets a <strong>2 second head start</strong>, then chase it
         with your finger. Lift your finger and the head start resets.

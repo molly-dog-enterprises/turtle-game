@@ -1,9 +1,16 @@
-# 🐢 Turtle Game
+# 🐢 Turtle Games
+
+Small, silly games about chasing a turtle that does not want to be caught.
+The site root is a landing page; each game lives in its own folder.
+
+**Play:** <https://molly-dog-enterprises.github.io/turtle-game/>
+
+## Just finger it (The Turtle Game)
 
 Chase the turtle with your finger (or mouse) before a stupidly short clock
 runs out — while ads for products nobody wants get in your way.
 
-**Play it:** <https://molly-dog-enterprises.github.io/turtle-game/>
+**Play it:** <https://molly-dog-enterprises.github.io/turtle-game/just-finger-it/>
 
 All game logic is written in [Gleam](https://gleam.run) and compiled to plain
 JavaScript ES modules. The page itself is flat HTML/CSS/JS — no framework, no
@@ -39,10 +46,11 @@ interstitial) are read out loud in a bad computer voice.
 
 | Path                    | What it is                                              |
 | ----------------------- | ------------------------------------------------------- |
+| `index.html`            | The Turtle Games landing page — every game links off it |
+| `just-finger-it/`       | The first game: flat shell (`index.html` / `style.css` / `app.js`) plus `js/`, the compiled Gleam output (committed so Pages can serve it) |
 | `src/turtle_game.gleam` | The whole game: state machine, turtle AI, ads, scoring  |
 | `src/turtle_game_ffi.mjs` | Tiny FFI shim for `Math.random` and `Math.sqrt`       |
-| `index.html` / `style.css` / `app.js` | The flat shell: pointer events in, DOM out |
-| `js/`                   | The compiled Gleam output (committed so Pages can serve it) |
+| `NEXT-VERSION.md`       | Design doc for the from-scratch next game (work in progress) |
 
 ## Developing
 
@@ -51,13 +59,14 @@ targets JavaScript only).
 
 ```sh
 gleam build                                  # compile src/ to build/
-rm -rf js && cp -R build/dev/javascript js   # refresh the committed output
-rm -rf js/fingerprint js/*/_gleam_artefacts  # drop compiler cache files
+rm -rf just-finger-it/js                     # refresh the committed output
+cp -R build/dev/javascript just-finger-it/js
+rm -rf just-finger-it/js/fingerprint just-finger-it/js/*/_gleam_artefacts
 python3 -m http.server 8787                  # serve, then open localhost:8787
 ```
 
-Commit the refreshed `js/` along with your `src/` change — GitHub Pages
-serves exactly what's committed.
+Commit the refreshed `just-finger-it/js/` along with your `src/` change —
+GitHub Pages serves exactly what's committed.
 
 ## Hosting
 

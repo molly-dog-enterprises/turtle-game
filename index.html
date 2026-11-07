@@ -2,47 +2,114 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
-    />
-    <title>Turtle Game</title>
-    <meta name="description" content="Chase the turtle before the stupidly short clock runs out." />
-    <link rel="stylesheet" href="./style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Turtle Games</title>
+    <meta name="description" content="Small, silly turtle-chasing games. Written in Gleam." />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐢</text></svg>"
     />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.6rem;
+        padding: 2rem 1rem;
+        background: #0f1b2d;
+        color: #eef3fa;
+        font-family: system-ui, sans-serif;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(1.8rem, 7vw, 2.6rem);
+      }
+      .tagline {
+        margin: 0;
+        max-width: 38ch;
+        opacity: 0.75;
+      }
+      .games {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 420px;
+      }
+      .game-card {
+        display: block;
+        padding: 1.2rem 1.4rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.05);
+        color: inherit;
+        text-decoration: none;
+        text-align: left;
+        transition: transform 0.12s ease, background 0.12s ease;
+      }
+      a.game-card:hover,
+      a.game-card:focus-visible {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+      .game-card h2 {
+        margin: 0 0 0.3rem;
+        font-size: 1.15rem;
+      }
+      .game-card p {
+        margin: 0;
+        font-size: 0.9rem;
+        opacity: 0.75;
+      }
+      .play {
+        display: inline-block;
+        margin-top: 0.7rem;
+        font-weight: 700;
+        color: #6fe3a5;
+      }
+      .game-card.soon {
+        opacity: 0.6;
+        border-style: dashed;
+      }
+      footer {
+        font-size: 0.75rem;
+        opacity: 0.5;
+      }
+      footer a {
+        color: inherit;
+      }
+    </style>
   </head>
   <body>
-    <div class="turtle-page">
-      <header class="hud">
-        <span class="hud-item">Level <strong id="hud-level">1</strong></span>
-        <span class="hud-item" id="hud-time-item">⏱ <strong id="hud-time">0.0s</strong></span>
-        <span class="hud-item">🐢 <strong id="hud-left">0</strong></span>
-        <span class="hud-item">🏆 <strong id="hud-score">0</strong></span>
-      </header>
+    <h1>🐢 Turtle Games</h1>
+    <p class="tagline">Small, silly games about chasing a turtle that does not want to be caught.</p>
 
-      <div id="arena" class="arena">
-        <div id="sprites" class="sprites"></div>
+    <nav class="games" aria-label="Games">
+      <a class="game-card" href="./just-finger-it/">
+        <h2>Just finger it <small>(The Turtle Game)</small></h2>
+        <p>
+          Press and hold, then chase the turtle with your finger before a stupidly short clock
+          runs out — while ads for products nobody wants get in your way.
+        </p>
+        <span class="play">Play →</span>
+      </a>
 
-        <div id="grace" class="grace" hidden></div>
-
-        <div id="interstitial" class="interstitial" hidden>
-          <div class="interstitial-card">
-            <span class="ad-badge">AD</span>
-            <p class="interstitial-kicker">A word from our sponsors</p>
-            <strong class="interstitial-product" id="int-product"></strong>
-            <em class="interstitial-tagline" id="int-tagline"></em>
-            <span class="ad-cta">BUY NOW!!</span>
-            <button class="interstitial-skip" id="int-skip" disabled>Skip</button>
-            <p class="interstitial-note">Game paused. The turtle is also waiting. Probably.</p>
-          </div>
-        </div>
-
-        <div id="overlay" class="overlay" hidden></div>
+      <div class="game-card soon">
+        <h2>The next one</h2>
+        <p>A from-scratch new version is being dreamt up. The turtle is nervous.</p>
       </div>
-    </div>
-    <script type="module" src="./app.js"></script>
+    </nav>
+
+    <footer>
+      Game logic written in <a href="https://gleam.run">Gleam</a> ·
+      <a href="https://github.com/molly-dog-enterprises/turtle-game">source</a>
+    </footer>
   </body>
 </html>
